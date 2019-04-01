@@ -1,4 +1,4 @@
-﻿/*
+/*
  
   This Source Code Form is subject to the terms of the Mozilla Public
   License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -14,7 +14,6 @@ using System.Globalization;
 using System.IO;
 using System.Security.Permissions;
 using System.Reflection;
-using System.Net.NetworkInformation;
 
 namespace OpenHardwareMonitor.Hardware {
 
@@ -32,9 +31,7 @@ namespace OpenHardwareMonitor.Hardware {
     private bool ramEnabled;
     private bool gpuEnabled;
     private bool fanControllerEnabled;
-    private bool hddEnabled;  
-    private bool nicEnabled;
-    private int nicCount;
+    private bool hddEnabled;    
 
     public Computer() {
       this.settings = new Settings();
@@ -104,17 +101,10 @@ namespace OpenHardwareMonitor.Hardware {
       if (fanControllerEnabled) {
         Add(new TBalancer.TBalancerGroup(settings));
         Add(new Heatmaster.HeatmasterGroup(settings));
-        Add(new Aquacomputer.AquacomputerGroup(settings));
       }
 
       if (hddEnabled)
         Add(new HDD.HarddriveGroup(settings));
-
-      if (nicEnabled)
-      {
-        nicCount = NetworkInterface.GetAllNetworkInterfaces().Length;
-        Add(new Nic.NicGroup(settings));
-      }
 
       open = true;
     }
@@ -191,11 +181,9 @@ namespace OpenHardwareMonitor.Hardware {
           if (value) {
             Add(new TBalancer.TBalancerGroup(settings));
             Add(new Heatmaster.HeatmasterGroup(settings));
-            Add(new Aquacomputer.AquacomputerGroup(settings));
           } else {
             RemoveType<TBalancer.TBalancerGroup>();
             RemoveType<Heatmaster.HeatmasterGroup>();
-            RemoveType<Aquacomputer.AquacomputerGroup>();
           }
         }
         fanControllerEnabled = value;
@@ -214,21 +202,6 @@ namespace OpenHardwareMonitor.Hardware {
             RemoveType<HDD.HarddriveGroup>();
         }
         hddEnabled = value;
-      }
-    }
-
-    public bool NICEnabled {
-      get { return nicEnabled; }
-
-      [SecurityPermission(SecurityAction.LinkDemand, UnmanagedCode = true)]
-      set {
-        if (open && value != nicEnabled) {
-          if (value)
-            Add(new Nic.NicGroup(settings));
-          else
-            RemoveType<Nic.NicGroup>();
-        }
-        nicEnabled = value;
       }
     }
 
@@ -283,7 +256,7 @@ namespace OpenHardwareMonitor.Hardware {
       Array.Sort(sensors, CompareSensor);
       foreach (ISensor sensor in sensors) {
         string innerSpace = space + "|  ";
-        if (sensor.Parameters.Count > 0) {
+        if (sensor.Parameters.Length > 0) {
           w.WriteLine("{0}|", innerSpace);
           w.WriteLine("{0}+- {1} ({2})",
             innerSpace, sensor.Name, sensor.Identifier);
@@ -365,7 +338,7 @@ namespace OpenHardwareMonitor.Hardware {
             w.Write(report);
           }
 
-          var hardwareArray = group.Hardware;
+          IHardware[] hardwareArray = group.Hardware;
           foreach (IHardware hardware in hardwareArray)
             ReportHardware(hardware, w);
 
@@ -402,7 +375,7 @@ namespace OpenHardwareMonitor.Hardware {
 
     public void Traverse(IVisitor visitor) {
       foreach (IGroup group in groups)
-        foreach (IHardware hardware in group.Hardware)
+        foreach (IHardware hardware in group.Hardware) 
           hardware.Accept(visitor);
     }
 
