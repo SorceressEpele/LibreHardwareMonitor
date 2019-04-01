@@ -12,7 +12,7 @@ using System.Collections.Generic;
 
 namespace OpenHardwareMonitor.Hardware {
 
-  internal interface IGroup {
+    public interface IGroup {
 
     IEnumerable<IHardware> Hardware { get; }
 
