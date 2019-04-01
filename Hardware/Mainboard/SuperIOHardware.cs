@@ -1,4 +1,4 @@
-/*
+﻿/*
  
   This Source Code Form is subject to the terms of the Mozilla Public
   License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -334,6 +334,7 @@ namespace OpenHardwareMonitor.Hardware.Mainboard {
               f.Add(new Fan("Chassis Fan #2", 2));
               break;
             case Model.PRIME_X370_PRO: // IT8665E
+            case Model.TUF_X470_PLUS_GAMING: // Testing
               v.Add(new Voltage("CPU VCore", 0));
               v.Add(new Voltage("SB 2.5V", 1));
               v.Add(new Voltage("+12V", 2, 5, 1));
