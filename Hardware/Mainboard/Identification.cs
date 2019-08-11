@@ -224,8 +224,6 @@ namespace OpenHardwareMonitor.Hardware.Mainboard {
           return Model.AX370_K7;
         case "PRIME X370-PRO":
           return Model.PRIME_X370_PRO;
-        case "TUF X470-PLUS GAMING":
-          return Model.TUF_X470_PLUS_GAMING;
         case "ROG MAXIMUS X APEX":
           return Model.ROG_MAXIMUS_APEX;
         case "AB350-Gaming 3-CF":

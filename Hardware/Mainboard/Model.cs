@@ -41,7 +41,6 @@ namespace OpenHardwareMonitor.Hardware.Mainboard {
     Rampage_Extreme,
     Rampage_II_GENE,
     PRIME_X370_PRO,
-    TUF_X470_PLUS_GAMING,
     ROG_MAXIMUS_APEX,
     ROG_ZENITH_EXTREME,
     ASUS_Z170_A,
