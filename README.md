@@ -1,9 +1,7 @@
 # LibreHardwareMonitor
-[![Build status](https://ci.appveyor.com/api/projects/status/yk60la8da96kfjos?svg=true)](https://ci.appveyor.com/project/LibreHardwareMonitor/librehardwaremonitor)
 
-Libre Hardware Monitor, home of the fork of Open Hardware Monitor
+This is a custom, personal, fork of LibreHardwareMonitor - which is a fork of OpenHardwareMonitor.
 
-We will happily accept pull requests.
-
-
-You can download the latest builds [here](https://ci.appveyor.com/project/LibreHardwareMonitor/librehardwaremonitor/build/artifacts).
+Forked on 01 April 2019.
+* Merged in fan curve pull request from OpenHardwareMonitor.
+* Experimented with getting IT8665E to display sensor info at boot, no dice yet.
